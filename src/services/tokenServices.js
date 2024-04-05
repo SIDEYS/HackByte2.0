@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken"
 import APIError from "../exception/errorHandler.js";
 
 //#region Generate JWT Token
-export const generateTokenService = async (userId, userRole) => {
+export const generateTokenService = async (userId) => {
     try {
 
         //generate new token
@@ -13,7 +13,6 @@ export const generateTokenService = async (userId, userRole) => {
 
         let data = {
             userId: userId,
-            userRole:userRole,
             tokenExpiryTime: tokenExpiryTime
         }
 

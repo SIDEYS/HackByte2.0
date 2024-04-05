@@ -21,10 +21,10 @@ export const adminAuth = async (req, res, next) => {
         }
 
         const userId = getObjectId(verify.userId)
-        const userRole = verify.userRole
+        // const userRole = verify.userRole
 
         req.body.userId = userId
-        req.body.userRole = userRole
+        // req.body.userRole = userRole
         next();
     } catch (error) {
         next(error)

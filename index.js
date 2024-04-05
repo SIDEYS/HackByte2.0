@@ -11,10 +11,11 @@ import { config } from './config.js'
 import { returnError } from './src/exception/errorHandler.js';
 
 //Importing Routes
-import authRoutes from './src/routes/authRoutes.js'
+import userLoginRoutes from './src/routes/userLoginRoutes.js'
+import userRegisterRoutes from './src/routes/userRegisterRoutes.js'
 
 //defining port
-const port = process.env.PORT || 8800
+const port = process.env.PORT || 8000
 
 const app = express()
 app.options("*", cors({ origin: '*', optionsSuccessStatus: 200 }));
@@ -36,7 +37,8 @@ mongoose.connect(config.connectionString, { useNewUrlParser: true, useUnifiedTop
 
 app.get('/admin', (req, res) => { res.send('Hello World, from express.') });
 
-app.use('/admin/auth', authRoutes)
+app.use('/user', userLoginRoutes)
+app.use('/user', userRegisterRoutes)
 
 
 app.use(returnError);
