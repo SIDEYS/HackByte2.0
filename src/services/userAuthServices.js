@@ -1,10 +1,10 @@
 import APIError, { HttpStatusCode } from "../exception/errorHandler.js"
 import { compareData } from "../helpers/encryption/encryption.js"
-import Admin from "../models/adminModel.js"
+import User from "../models/userModel.js"
 import { generateTokenService } from "./tokenServices.js"
 
 //#region Admin Login Service
-export const adminLoginService = async (email, password) => {
+export const userLoginService = async (email, password) => {
     try {
 
         //#region User Pipeline
@@ -13,8 +13,7 @@ export const adminLoginService = async (email, password) => {
                 $project: {
                     email: { $toLower: '$email' },
                     password: '$password',
-                    name: '$name',
-                    userRole:'$userRole'
+                    name: '$name'
                 }
             },
             {
@@ -25,7 +24,7 @@ export const adminLoginService = async (email, password) => {
         ]
         //#endregion
 
-        let result = await Admin.aggregate(userPipeline)
+        let result = await User.aggregate(userPipeline)
         if (result.length == 0) {
             throw new APIError("UNAUTHORIZED_REQUEST", HttpStatusCode.UNAUTHORIZED_REQUEST, true, 'This User Does Not Exist.');
         }
@@ -37,15 +36,13 @@ export const adminLoginService = async (email, password) => {
         let isPasswordMatched = await compareData(password, hashedPassword)
 
         if (isPasswordMatched) {
-
             // getting Token of User
-            let tokenObj = await generateTokenService(userDetails._id, userDetails.userRole)
+            let tokenObj = await generateTokenService(userDetails._id)
 
             return {
                 token: tokenObj.token,
                 expiresAt: tokenObj.expiresAt,
                 userName: userDetails.name,
-                userRole:userDetails.userRole
             }
         }
         else {
