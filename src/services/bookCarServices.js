@@ -14,13 +14,10 @@ try {
 };
 
 
-export const bookCarService = async (carId) => {
-try {
-
-        res.redirect('https://payment-gateway.com')
-        // const cars = await Cars.findOneAndUpdate({  });
-
-        return updatedCar
+export const singleCarService = async (userId) => {
+try {    
+        const car = await Cars.findOne({ _id: userId });
+        return car
     }
     catch(error) {
       console.log(error);

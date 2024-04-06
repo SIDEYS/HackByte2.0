@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from "cors"
 import dotenv from "dotenv";
+import stripe from "stripe";
 dotenv.config({ silent: process.env.NODE_ENV === 'production' });
 
 import bodyParser from 'body-parser';
@@ -26,6 +27,8 @@ app.use(express.json())
 
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
+
+app.set("view engine", "ejs")
 
 //connecting db
 mongoose.connect(config.connectionString, { useNewUrlParser: true, useUnifiedTopology: true })
