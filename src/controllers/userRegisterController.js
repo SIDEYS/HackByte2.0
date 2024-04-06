@@ -5,6 +5,8 @@ export const addUserController = async (req, res, next) =>{
     try {
         // console.log("reqbody:", req.body);
         // const userId = req.body.userId
+        // const userId = req.session.userId;
+        // console.log(userId);
         const { name,mobileNumber,email,password } = req.body
         const encryptedPassword = await encryptData(password);
         const objToInsert = {

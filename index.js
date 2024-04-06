@@ -13,6 +13,8 @@ import { returnError } from './src/exception/errorHandler.js';
 //Importing Routes
 import userLoginRoutes from './src/routes/userLoginRoutes.js'
 import userRegisterRoutes from './src/routes/userRegisterRoutes.js'
+import userCarRoutes from './src/routes/registerCarRoutes.js'
+import bookCarRoutes from './src/routes/bookCarRoutes.js'
 
 //defining port
 const port = process.env.PORT || 8000
@@ -39,6 +41,8 @@ app.get('/admin', (req, res) => { res.send('Hello World, from express.') });
 
 app.use('/user', userLoginRoutes)
 app.use('/user', userRegisterRoutes)
+app.use('/user', userCarRoutes)
+app.use('/user', bookCarRoutes)
 
 
 app.use(returnError);

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
 export const getObjectId = (id) => {
-    return mongoose.Types.ObjectId(id);
+    const userId = new mongoose.Types.ObjectId();
+    return userId;
 }
